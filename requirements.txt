@@ -1,0 +1,8 @@
+pytest==7.4.0
+pytest-html==4.1.1
+requests==2.31.0
+jsonschema==4.20.0
+pyyaml==6.0.1
+openapi-spec-validator==0.7.1
+colorama==0.4.6
+prance==23.6.21.0
