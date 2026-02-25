@@ -4,11 +4,10 @@ Validate that OpenAPI spec is valid and well-formed
 
 Tests that the contract itself is correct before testing implementations
 """
-from _pytest.stash import T
 import pytest
 import yaml
 from pathlib import Path
-from openapi_spec_validator import validate_spec
+from openapi_spec_validator import validate
 from openapi_spec_validator.readers import read_from_filename
 
 class TestOpenAPISpecValidation:
@@ -69,7 +68,7 @@ class TestOpenAPISpecValidation:
         try:
             # Read and validate spec
             spec_dict, spec_url = read_from_filename(str(users_api_spec_path))
-            validate_spec(spec_dict)
+            validate(spec_dict)
             
             print(f"\nOpenAPI Validation: Spec is valid OpenAPI 3.0")
             print(f"Paths defined: {len(spec_dict.get('paths', {}))}")
