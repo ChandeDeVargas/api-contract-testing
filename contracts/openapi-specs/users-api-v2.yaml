@@ -1,0 +1,200 @@
+openapi: 3.0.0
+info:
+  title: Users API
+  version: 2.0.0
+  description: |
+    Users API v2 - WITH BREAKING CHANGES
+    This version introduces breaking changes to demonstrate detection
+  contact:
+    name: API Support
+    email: support@example.com
+
+servers:
+  - url: https://jsonplaceholder.typicode.com
+    description: JSONPlaceholder Mock Server
+
+paths:
+  /users:
+    get:
+      summary: Get all users
+      operationId: getUsers
+      tags:
+        - Users
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/User"
+
+    post:
+      summary: Create a new user
+      operationId: createUser
+      tags:
+        - Users
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/UserCreate"
+      responses:
+        "200": # BREAKING: Changed from 201 to 200
+          description: User created successfully
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "400":
+          description: Invalid input
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+  /users/{id}:
+    get:
+      summary: Get user by ID
+      operationId: getUserById
+      tags:
+        - Users
+      parameters:
+        - name: id
+          in: path
+          required: true
+          description: User ID
+          schema:
+            type: integer
+            minimum: 1
+      responses:
+        "200":
+          description: Successful response
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/User"
+        "404":
+          description: User not found
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Error"
+
+components:
+  schemas:
+    User:
+      type: object
+      required:
+        - id
+        - username # BREAKING: 'name' removed from required
+        - email
+        - password # BREAKING: New required field
+      properties:
+        id:
+          type: string # BREAKING: Changed from integer to string
+          description: Unique user identifier
+          example: "1"
+        # BREAKING: 'name' field removed completely
+        username:
+          type: string
+          description: User's username
+          minLength: 3
+          maxLength: 30
+          example: "johndoe"
+        email:
+          type: string
+          format: email
+          description: User's email address
+          example: "john@example.com"
+        password: # BREAKING: New required field
+          type: string
+          description: User's password (hashed)
+          minLength: 8
+          example: "hashed_password_here"
+        phone:
+          type: string
+          description: User's phone number (optional)
+          example: "1-770-736-8031"
+        website:
+          type: string
+          format: uri
+          description: User's website (optional)
+          example: "https://example.com"
+        address:
+          $ref: "#/components/schemas/Address"
+        company:
+          $ref: "#/components/schemas/Company"
+
+    UserCreate:
+      type: object
+      required:
+        - username
+        - email
+        - password # BREAKING: Now required for creation
+      properties:
+        username:
+          type: string
+          minLength: 3
+          maxLength: 30
+        email:
+          type: string
+          format: email
+        password:
+          type: string
+          minLength: 8
+
+    Address:
+      type: object
+      properties:
+        street:
+          type: string
+          example: "Kulas Light"
+        suite:
+          type: string
+          example: "Apt. 556"
+        city:
+          type: string
+          example: "Gwenborough"
+        zipcode:
+          type: string
+          example: "92998-3874"
+        geo:
+          $ref: "#/components/schemas/Geo"
+
+    Geo:
+      type: object
+      properties:
+        lat:
+          type: string
+          example: "-37.3159"
+        lng:
+          type: string
+          example: "81.1496"
+
+    Company:
+      type: object
+      properties:
+        name:
+          type: string
+          example: "Romaguera-Crona"
+        catchPhrase:
+          type: string
+          example: "Multi-layered client-server neural-net"
+        bs:
+          type: string
+          example: "harness real-time e-markets"
+
+    Error:
+      type: object
+      required:
+        - message
+      properties:
+        message:
+          type: string
+          description: Error message
+        code:
+          type: string
+          description: Error code
