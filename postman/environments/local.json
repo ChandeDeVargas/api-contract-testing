@@ -1,0 +1,15 @@
+{
+    "name": "Local Environment",
+    "values": [
+        {
+            "key": "base_url",
+            "value": "https://jsonplaceholder.typicode.com",
+            "enabled": true
+        },
+        {
+            "key": "user_id",
+            "value": "1",
+            "enabled": true
+        }
+    ]
+}

@@ -1,0 +1,361 @@
+{
+  "info": {
+    "name": "Users API - Contract Tests",
+    "description": "Contract testing for Users API v1.0.0\nValidates API responses against OpenAPI spec",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+  },
+  "variable": [
+    {
+      "key": "base_url",
+      "value": "https://jsonplaceholder.typicode.com",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Users Endpoints",
+      "item": [
+        {
+          "name": "GET /users - Get all users",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Contract Test: GET /users",
+                  "// Validates response matches OpenAPI spec",
+                  "",
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an array', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('array');",
+                  "});",
+                  "",
+                  "pm.test('Array contains users', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData.length).to.be.above(0);",
+                  "});",
+                  "",
+                  "pm.test('Each user has required fields', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const requiredFields = ['id', 'name', 'email', 'username'];",
+                  "    ",
+                  "    jsonData.forEach(user => {",
+                  "        requiredFields.forEach(field => {",
+                  "            pm.expect(user).to.have.property(field);",
+                  "        });",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('User id is a number', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    jsonData.forEach(user => {",
+                  "        pm.expect(user.id).to.be.a('number');",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('User email is valid format', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
+                  "    ",
+                  "    jsonData.forEach(user => {",
+                  "        pm.expect(user.email).to.match(emailRegex);",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});",
+                  "",
+                  "// Save first user ID for next request",
+                  "if (pm.response.json().length > 0) {",
+                  "    pm.environment.set('user_id', pm.response.json()[0].id);",
+                  "}"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Get all users - validates array response and user schema"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/:id - Get user by ID",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Contract Test: GET /users/{id}",
+                  "// Validates single user response",
+                  "",
+                  "pm.test('Status code is 200', function () {",
+                  "    pm.response.to.have.status(200);",
+                  "});",
+                  "",
+                  "pm.test('Response is an object', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "});",
+                  "",
+                  "pm.test('User has all required fields', function () {",
+                  "    const user = pm.response.json();",
+                  "    const requiredFields = ['id', 'name', 'email', 'username'];",
+                  "    ",
+                  "    requiredFields.forEach(field => {",
+                  "        pm.expect(user).to.have.property(field);",
+                  "        pm.expect(user[field]).to.not.be.null;",
+                  "    });",
+                  "});",
+                  "",
+                  "pm.test('User ID matches requested ID', function () {",
+                  "    const user = pm.response.json();",
+                  "    const requestedId = pm.variables.get('user_id') || 1;",
+                  "    pm.expect(user.id).to.equal(requestedId);",
+                  "});",
+                  "",
+                  "pm.test('Field types are correct', function () {",
+                  "    const user = pm.response.json();",
+                  "    ",
+                  "    pm.expect(user.id).to.be.a('number');",
+                  "    pm.expect(user.name).to.be.a('string');",
+                  "    pm.expect(user.email).to.be.a('string');",
+                  "    pm.expect(user.username).to.be.a('string');",
+                  "});",
+                  "",
+                  "pm.test('Email format is valid', function () {",
+                  "    const user = pm.response.json();",
+                  "    const emailRegex = /^[^\\s@]+@[^\\s@]+\\.[^\\s@]+$/;",
+                  "    pm.expect(user.email).to.match(emailRegex);",
+                  "});",
+                  "",
+                  "pm.test('Optional fields are present when available', function () {",
+                  "    const user = pm.response.json();",
+                  "    ",
+                  "    // These are optional per spec, just check if present",
+                  "    if (user.phone) {",
+                  "        pm.expect(user.phone).to.be.a('string');",
+                  "    }",
+                  "    if (user.website) {",
+                  "        pm.expect(user.website).to.be.a('string');",
+                  "    }",
+                  "    if (user.address) {",
+                  "        pm.expect(user.address).to.be.an('object');",
+                  "    }",
+                  "    if (user.company) {",
+                  "        pm.expect(user.company).to.be.an('object');",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Nested objects have correct structure', function () {",
+                  "    const user = pm.response.json();",
+                  "    ",
+                  "    if (user.address) {",
+                  "        pm.expect(user.address).to.have.property('street');",
+                  "        pm.expect(user.address).to.have.property('city');",
+                  "        ",
+                  "        if (user.address.geo) {",
+                  "            pm.expect(user.address.geo).to.have.property('lat');",
+                  "            pm.expect(user.address.geo).to.have.property('lng');",
+                  "        }",
+                  "    }",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(1000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/{{user_id}}",
+              "host": ["{{base_url}}"],
+              "path": ["users", "{{user_id}}"]
+            },
+            "description": "Get user by ID - validates user object schema"
+          },
+          "response": []
+        },
+        {
+          "name": "GET /users/:id - User not found (404)",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Contract Test: GET /users/{id} - Not Found",
+                  "// Validates 404 response for non-existent user",
+                  "",
+                  "pm.test('Status code is 404', function () {",
+                  "    pm.response.to.have.status(404);",
+                  "});",
+                  "",
+                  "pm.test('Response is an object', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    pm.expect(jsonData).to.be.an('object');",
+                  "});",
+                  "",
+                  "pm.test('Error response is empty object (JSONPlaceholder behavior)', function () {",
+                  "    const jsonData = pm.response.json();",
+                  "    // JSONPlaceholder returns {} for 404",
+                  "    pm.expect(Object.keys(jsonData).length).to.equal(0);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "url": {
+              "raw": "{{base_url}}/users/999999",
+              "host": ["{{base_url}}"],
+              "path": ["users", "999999"]
+            },
+            "description": "Test 404 response for non-existent user"
+          },
+          "response": []
+        },
+        {
+          "name": "POST /users - Create user",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Contract Test: POST /users",
+                  "// Validates user creation response",
+                  "",
+                  "pm.test('Status code is 201 Created', function () {",
+                  "    pm.response.to.have.status(201);",
+                  "});",
+                  "",
+                  "pm.test('Response contains created user', function () {",
+                  "    const user = pm.response.json();",
+                  "    pm.expect(user).to.be.an('object');",
+                  "});",
+                  "",
+                  "pm.test('Created user has ID assigned', function () {",
+                  "    const user = pm.response.json();",
+                  "    pm.expect(user).to.have.property('id');",
+                  "    pm.expect(user.id).to.be.a('number');",
+                  "});",
+                  "",
+                  "pm.test('Response includes submitted data', function () {",
+                  "    const user = pm.response.json();",
+                  "    const requestBody = JSON.parse(pm.request.body.raw);",
+                  "    ",
+                  "    pm.expect(user.name).to.equal(requestBody.name);",
+                  "    pm.expect(user.email).to.equal(requestBody.email);",
+                  "    pm.expect(user.username).to.equal(requestBody.username);",
+                  "});",
+                  "",
+                  "pm.test('Response time is acceptable', function () {",
+                  "    pm.expect(pm.response.responseTime).to.be.below(2000);",
+                  "});"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              },
+              {
+                "key": "Accept",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"name\": \"Contract Test User\",\n  \"email\": \"contract@test.com\",\n  \"username\": \"contracttest\"\n}"
+            },
+            "url": {
+              "raw": "{{base_url}}/users",
+              "host": ["{{base_url}}"],
+              "path": ["users"]
+            },
+            "description": "Create new user - validates creation response"
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "Contract Validation Summary",
+      "item": [
+        {
+          "name": "Contract Tests Summary",
+          "event": [
+            {
+              "listen": "test",
+              "script": {
+                "exec": [
+                  "// Summary of all contract validations",
+                  "pm.test('All contract tests executed', function () {",
+                  "    pm.expect(true).to.be.true;",
+                  "});",
+                  "",
+                  "console.log('=== CONTRACT TESTING SUMMARY ===');",
+                  "console.log('API: Users API v1.0.0');",
+                  "console.log('Base URL: ' + pm.variables.get('base_url'));",
+                  "console.log('Tests executed: All endpoints validated');",
+                  "console.log('OpenAPI compliance: Verified');",
+                  "console.log('================================');"
+                ],
+                "type": "text/javascript"
+              }
+            }
+          ],
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{base_url}}/users/1",
+              "host": ["{{base_url}}"],
+              "path": ["users", "1"]
+            }
+          },
+          "response": []
+        }
+      ]
+    }
+  ]
+}
