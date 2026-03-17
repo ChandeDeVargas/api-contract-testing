@@ -4,7 +4,7 @@ Tests the BreakingChangeDetector by comparing two versions of the Users API
 """
 import pytest
 from pathlib import Path
-from tests.utils.breaking_change_detector import BreakingChangeDetector
+from utils.breaking_change_detector import BreakingChangeDetector
 
 class TestBreakingChangeDetection:
     """

@@ -6,8 +6,8 @@ Tests that the implementation (API) follows the contract (OpenAPI spec)
 """
 import pytest
 import requests
-from tests.utils.openapi_loader import OpenAPILoader
-from tests.utils.schema_validator import SchemaValidator
+from utils.openapi_loader import OpenAPILoader
+from utils.schema_validator import SchemaValidator
 
 
 class TestSchemaCompliance:

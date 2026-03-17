@@ -10,7 +10,7 @@ Breaking changes are changes that break existing API consumers:
 - Removing enum values
 """
 from typing import Dict, Any, List, Tuple
-from tests.utils.openapi_loader import OpenAPILoader
+from utils.openapi_loader import OpenAPILoader
 
 
 class BreakingChange:
