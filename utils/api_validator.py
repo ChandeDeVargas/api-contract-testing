@@ -212,7 +212,7 @@ class APIValidator:
         print(f"Response time {self.response_time:.3f}s (under {max_seconds}s)")
         return self
     
-    def assert_respnse_fast(self) -> 'APIValidator':
+    def assert_response_fast(self) -> 'APIValidator':
         """
         Assert response time under 1 second.
         

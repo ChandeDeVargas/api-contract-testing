@@ -1,0 +1,162 @@
+============================= test session starts =============================
+platform win32 -- Python 3.13.5, pytest-9.0.2, pluggy-1.6.0 -- C:\Users\Julio Cesar\AppData\Local\Programs\Python\Python313\python.exe
+cachedir: .pytest_cache
+metadata: {'Python': '3.13.5', 'Platform': 'Windows-10-10.0.19045-SP0', 'Packages': {'pytest': '9.0.2', 'pluggy': '1.6.0'}, 'Plugins': {'anyio': '4.9.0', 'base-url': '2.1.0', 'cov': '7.0.0', 'html': '4.0.2', 'metadata': '3.1.1', 'playwright': '0.7.2', 'xdist': '3.3.1'}, 'Base URL': ''}
+rootdir: C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing
+configfile: pytest.ini
+plugins: anyio-4.9.0, base-url-2.1.0, cov-7.0.0, html-4.0.2, metadata-3.1.1, playwright-0.7.2, xdist-3.3.1
+collecting ... collected 6 items
+
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_get_users_response_matches_schema ERROR
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_user_required_fields_present 
+[Required Fields Check]
+   Required by spec: ['id', 'name', 'email', 'username']
+FAILED
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_user_field_types_correct ERROR
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_email_format_validation ERROR
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_multiple_users_all_comply ERROR
+tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_optional_fields_when_present 
+[Optional Fields]
+   Optional fields defined: 4
+FAILED
+
+=================================== ERRORS ====================================
+_ ERROR at setup of TestSchemaCompliance.test_get_users_response_matches_schema _
+file C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py, line 28
+      def test_get_users_response_matches_schema(self, base_url,
+E       fixture 'schema_validator' not found
+>       available fixtures: _artifacts_recorder, _pw_artifacts_folder, _verify_url, anyio_backend, anyio_backend_name, anyio_backend_options, api_base_url, base_url, browser, browser_channel, browser_context_args, browser_name, browser_type, browser_type_launch_args, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, connect_options, context, cov, delete_output_dir, device, doctest_namespace, extra, extras, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, include_metadata_in_junit_xml, is_chromium, is_firefox, is_webkit, launch_browser, metadata, monkeypatch, new_context, no_cover, openapi_loader, output_path, page, playwright, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, testrun_uid, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py:28
+____ ERROR at setup of TestSchemaCompliance.test_user_field_types_correct _____
+file C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py, line 117
+      def test_user_field_types_correct(self, base_url, openapi_loader, schema_validator):
+E       fixture 'schema_validator' not found
+>       available fixtures: _artifacts_recorder, _pw_artifacts_folder, _verify_url, anyio_backend, anyio_backend_name, anyio_backend_options, api_base_url, base_url, browser, browser_channel, browser_context_args, browser_name, browser_type, browser_type_launch_args, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, connect_options, context, cov, delete_output_dir, device, doctest_namespace, extra, extras, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, include_metadata_in_junit_xml, is_chromium, is_firefox, is_webkit, launch_browser, metadata, monkeypatch, new_context, no_cover, openapi_loader, output_path, page, playwright, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, testrun_uid, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py:117
+_____ ERROR at setup of TestSchemaCompliance.test_email_format_validation _____
+file C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py, line 157
+      def test_email_format_validation(self, base_url, schema_validator):
+E       fixture 'schema_validator' not found
+>       available fixtures: _artifacts_recorder, _pw_artifacts_folder, _verify_url, anyio_backend, anyio_backend_name, anyio_backend_options, api_base_url, base_url, browser, browser_channel, browser_context_args, browser_name, browser_type, browser_type_launch_args, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, connect_options, context, cov, delete_output_dir, device, doctest_namespace, extra, extras, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, include_metadata_in_junit_xml, is_chromium, is_firefox, is_webkit, launch_browser, metadata, monkeypatch, new_context, no_cover, openapi_loader, output_path, page, playwright, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, testrun_uid, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py:157
+____ ERROR at setup of TestSchemaCompliance.test_multiple_users_all_comply ____
+file C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py, line 186
+      def test_multiple_users_all_comply(self, base_url,
+E       fixture 'schema_validator' not found
+>       available fixtures: _artifacts_recorder, _pw_artifacts_folder, _verify_url, anyio_backend, anyio_backend_name, anyio_backend_options, api_base_url, base_url, browser, browser_channel, browser_context_args, browser_name, browser_type, browser_type_launch_args, cache, capfd, capfdbinary, caplog, capsys, capsysbinary, capteesys, connect_options, context, cov, delete_output_dir, device, doctest_namespace, extra, extras, free_tcp_port, free_tcp_port_factory, free_udp_port, free_udp_port_factory, include_metadata_in_junit_xml, is_chromium, is_firefox, is_webkit, launch_browser, metadata, monkeypatch, new_context, no_cover, openapi_loader, output_path, page, playwright, pytestconfig, record_property, record_testsuite_property, record_xml_attribute, recwarn, subtests, testrun_uid, tmp_path, tmp_path_factory, tmpdir, tmpdir_factory, worker_id
+>       use 'pytest --fixtures [testpath]' for help on them.
+
+C:\Users\Julio Cesar\Desktop\QA Engineer Automation\Proyectos para subir a github\api-contract-testing\tests\schema_validation\test_schema_compliance.py:186
+================================== FAILURES ===================================
+___________ TestSchemaCompliance.test_user_required_fields_present ____________
+
+self = <tests.schema_validation.test_schema_compliance.TestSchemaCompliance object at 0x0000027727BC65D0>
+base_url = 'https://jsonplaceholder.typicode.com'
+openapi_loader = <utils.openapi_loader.OpenAPILoader object at 0x0000027727E44830>
+
+    def test_user_required_fields_present(self, base_url, openapi_loader):
+        """
+        Test: User response contains all required fields
+    
+        Required fields per OpenAPI spec:
+        - id (integer)
+        - name (string)
+        - email (string, format: email)
+        - username (string)
+        """
+        # Get User schema
+        user_schema = openapi_loader.get_schema('User')
+        required_fields = user_schema.get('required', [])
+    
+        # Get user from API
+        response = requests.get(f"{base_url}/users/1")
+        data = response.json()
+    
+        print(f"\n[Required Fields Check]")
+        print(f"   Required by spec: {required_fields}")
+    
+        missing_fields = []
+    
+        for field in required_fields:
+            if field not in data:
+                missing_fields.append(field)
+            else:
+>               print(f"   \u2713 {field}: {data[field]}")
+
+tests\schema_validation\test_schema_compliance.py:104: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <encodings.cp1252.IncrementalEncoder object at 0x00000277236A4AD0>
+input = '   \u2713 id: 1', final = False
+
+    def encode(self, input, final=False):
+>       return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 3: character maps to <undefined>
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py:19: UnicodeEncodeError
+___________ TestSchemaCompliance.test_optional_fields_when_present ____________
+
+self = <tests.schema_validation.test_schema_compliance.TestSchemaCompliance object at 0x0000027727B7FDF0>
+base_url = 'https://jsonplaceholder.typicode.com'
+openapi_loader = <utils.openapi_loader.OpenAPILoader object at 0x0000027727E44830>
+
+    def test_optional_fields_when_present(self, base_url, openapi_loader):
+        """
+        Test: Optional fields (when present) match schema types
+    
+        Optional fields per spec:
+        - phone: string
+        - website: string (format: uri)
+        - address: object
+        - company: object
+        """
+        user_schema = openapi_loader.get_schema('User')
+        properties = user_schema.get('properties', {})
+        required = user_schema.get('required', [])
+    
+        # Optional fields are those in properties but not in required
+        optional_fields = [
+            field for field in properties.keys()
+            if field not in required
+        ]
+    
+        response = requests.get(f"{base_url}/users/1")
+        data = response.json()
+    
+        print(f"\n[Optional Fields]")
+        print(f"   Optional fields defined: {len(optional_fields)}")
+    
+        for field in optional_fields:
+            if field in data:
+                value = data[field]
+                field_type = properties[field].get('type', 'any')
+>               print(f"   \u2713 {field} ({field_type}): present")
+
+tests\schema_validation\test_schema_compliance.py:260: 
+_ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _ _
+
+self = <encodings.cp1252.IncrementalEncoder object at 0x00000277236A4AD0>
+input = '   \u2713 phone (string): present', final = False
+
+    def encode(self, input, final=False):
+>       return codecs.charmap_encode(input,self.errors,encoding_table)[0]
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+E       UnicodeEncodeError: 'charmap' codec can't encode character '\u2713' in position 3: character maps to <undefined>
+
+..\..\..\..\AppData\Local\Programs\Python\Python313\Lib\encodings\cp1252.py:19: UnicodeEncodeError
+- Generated html report: file:///C:/Users/Julio%20Cesar/Desktop/QA%20Engineer%20Automation/Proyectos%20para%20subir%20a%20github/api-contract-testing/reports/test_report.html -
+=========================== short test summary info ===========================
+FAILED tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_user_required_fields_present
+FAILED tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_optional_fields_when_present
+ERROR tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_get_users_response_matches_schema
+ERROR tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_user_field_types_correct
+ERROR tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_email_format_validation
+ERROR tests/schema_validation/test_schema_compliance.py::TestSchemaCompliance::test_multiple_users_all_comply
+========================= 2 failed, 4 errors in 4.63s =========================

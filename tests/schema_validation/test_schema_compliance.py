@@ -9,6 +9,20 @@ import requests
 from utils.openapi_loader import OpenAPILoader
 from utils.schema_validator import SchemaValidator
 
+@pytest.fixture(scope='session')
+def openapi_loader():
+    """Load OpenAPI spec"""
+    return OpenAPILoader('contracts/openapi-specs/users-api-v1.yaml')
+
+@pytest.fixture(scope='session')
+def base_url(openapi_loader):
+    """Get base URL from OpenAPI spec"""
+    return openapi_loader.get_base_url()
+
+@pytest.fixture(scope='session')
+def schema_validator():
+    """Schema validator fixture"""
+    return SchemaValidator()
 
 class TestSchemaCompliance:
     """
@@ -16,24 +30,6 @@ class TestSchemaCompliance:
     
     Purpose: Ensure API implementation matches contract
     """
-    
-    @pytest.fixture(scope='class')
-    def openapi_loader(self):
-        """Load OpenAPI spec"""
-        return OpenAPILoader('contracts/openapi-specs/users-api-v1.yaml')
-    
-    
-    @pytest.fixture(scope='class')
-    def schema_validator(self):
-        """Create schema validator"""
-        return SchemaValidator()
-    
-    
-    @pytest.fixture(scope='class')
-    def base_url(self, openapi_loader):
-        """Get base URL from OpenAPI spec"""
-        return openapi_loader.get_base_url()
-
     def test_get_users_response_matches_schema(self, base_url, 
                                            openapi_loader, 
                                            schema_validator):
