@@ -2,10 +2,10 @@
 API Helper
 Wrapper class for HTTP requests using requests library
 
-Características:
-- Métodos para GET, POST, PUT, PATCH, DELETE
-- Logging automático de requests
-- Response validation integrada
+Features:
+- Methods for GET, POST, PUT, PATCH, DELETE
+- Automatic request logging
+- Integrated response validation
 - Headers management
 - Timeout configuration
 """
@@ -19,8 +19,8 @@ class APIHelper:
     """
     API Helper class.
     
-    Wrapper para requests con logging y validation.
-    Usa POO para organizar HTTP methods.
+    Wrapper for requests with logging and validation.
+    Uses OOP to organize HTTP methods.
     """
     def __init__(self, base_url: str, default_timeout: int = 30):
         """
@@ -290,7 +290,7 @@ class APIHelper:
         params = filters or {}
         
         if limit:
-            params['limit'] = limit
+            params['_limit'] = limit
             
         return self.get(f"/{resource}", params=params)
     

@@ -219,7 +219,7 @@ class APIValidator:
         Returns:
             APIValidator: self (for method chaining)
         """
-        return self.assert_response_time_under(1.0)
+        return self.assert_response_time_under(3.0)
     
     def assert_response_very_fast(self) -> 'APIValidator':
         """

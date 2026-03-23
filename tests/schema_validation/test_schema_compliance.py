@@ -69,14 +69,14 @@ class TestSchemaCompliance:
         errors = schema_validator.validate(data, user_schema, full_spec=full_spec)
     
         if errors:
-            print(f"\n✗ SCHEMA VIOLATIONS:")
+            print(f"\nSCHEMA VIOLATIONS:")
             for error in errors:
                 print(f"   - {error}")
     
         assert len(errors) == 0, \
-            f"✗ Schema validation failed: {len(errors)} errors"
+            f"Schema validation failed: {len(errors)} errors"
     
-        print(f"\n✓ Schema Compliance: User object matches spec")
+        print(f"\nSchema Compliance: User object matches spec")
 
     
     def test_user_required_fields_present(self, base_url, openapi_loader):
@@ -106,10 +106,10 @@ class TestSchemaCompliance:
             if field not in data:
                 missing_fields.append(field)
             else:
-                print(f"   ✓ {field}: {data[field]}")
+                print(f"   {field}: {data[field]}")
 
         if missing_fields:
-            print(f"   ✗ MISSING REQUIRED FIELDS:")
+            print(f"   MISSING REQUIRED FIELDS:")
             for field in missing_fields:
                 print(f"     - {field}")
 
@@ -117,7 +117,7 @@ class TestSchemaCompliance:
         assert len(missing_fields) == 0, \
             f"Missing required fields: {missing_fields}"
 
-        print(f"\n✓ Required Fields: All required fields present")
+        print(f"\nRequired Fields: All required fields present")
 
     def test_user_field_types_correct(self, base_url, openapi_loader, schema_validator):
         """
@@ -153,12 +153,12 @@ class TestSchemaCompliance:
                 if field in data:
                    expected_type = field_schema.get('type', 'any')
                    actual_value = data[field]
-                   print(f"   ✓ {field}: {expected_type} = {actual_value}")
+                   print(f"   {field}: {expected_type} = {actual_value}")
 
             assert len(type_errors) == 0, \
                 f"Type validation failed: {type_errors}"
 
-            print(f"\n✓ All field types correct")
+            print(f"\nAll field types correct")
     def test_email_format_validation(self, base_url, schema_validator):
         """
         Test: Email field follows email format
@@ -180,9 +180,9 @@ class TestSchemaCompliance:
         is_valid = schema_validator.validate_email_format(email)
         
         if is_valid:
-            print(f"   ✓ Valid email format")
+            print(f"   Valid email format")
         else:
-            print(f"   ✗ Invalid email format")
+            print(f"   Invalid email format")
         
         assert is_valid, \
             f"Email format invalid: {email}"
@@ -220,7 +220,7 @@ class TestSchemaCompliance:
             })
     
         if violations:
-            print(f"\n✗ VIOLATIONS FOUND:")
+            print(f"\nVIOLATIONS FOUND:")
             for v in violations:
                 print(f"\n   User ID {v['user_id']}:")
                 for error in v['errors']:
@@ -229,7 +229,7 @@ class TestSchemaCompliance:
         assert len(violations) == 0, \
             f"{len(violations)} users have schema violations"
     
-        print(f"\n✓ All {len(users)} users comply with schema")
+        print(f"\nAll {len(users)} users comply with schema")
     
     
     def test_optional_fields_when_present(self, base_url, openapi_loader):
@@ -262,8 +262,8 @@ class TestSchemaCompliance:
             if field in data:
                 value = data[field]
                 field_type = properties[field].get('type', 'any')
-                print(f"   ✓ {field} ({field_type}): present")
+                print(f"   {field} ({field_type}): present")
             else:
-                print(f"   ⚪ {field}: not present (OK - optional)")
+                print(f"   {field}: not present (OK - optional)")
         
-        print(f"\n✓ Optional fields handled correctly")
+        print(f"\nOptional fields handled correctly")
